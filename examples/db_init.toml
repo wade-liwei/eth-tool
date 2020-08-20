@@ -1,0 +1,13 @@
+home_multisign_addres = "2NGacmb38kNqQox1mxKFAJ6DwDHTuxSHCBn"
+
+
+foreign_contract_address = "0x3C464597543aCD5F0C7a34ff6259c3c9cA3B3d64"
+home_deploy = 1356302
+foreign_deploy =  240013
+
+
+
+#foreign_deploy =  240013 421351300870
+checked_deposit_relay = 0
+checked_withdraw_confirm = 0
+checked_withdraw_relay = 0

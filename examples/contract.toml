@@ -1,0 +1,15 @@
+
+eth_rpc_addr   = "http://192.168.1.188:8501"
+token_name     = "BLF"
+symbol         = "BLF"
+decimal        =  2
+batch_size     =  5
+block_range    =  10
+authorities =  [
+  "ca173243356994df86c1c39186fade4f66daf268",
+  "8d57bd1d69f0f3841aca2048d810502075b26a69",
+  "87cdd4531593d8f2df0ea228daf6231786f99ba1"
+]
+requiredSignatures = 2
+
+min_balance    =  20
