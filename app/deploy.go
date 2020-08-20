@@ -1,6 +1,7 @@
 package app
 
 import (
+	"reflect"
 	"strings"
 
 	"github.com/ethereum/go-ethereum/accounts/abi"
@@ -52,17 +53,20 @@ func (d *Deploy) Deploy(contractAbi, contractBin, name, symbol string, decimals 
 		dataInputs = append(dataInputs, blockRange)
 		dataInputs = append(dataInputs, big.NewInt(0).Mul(minBalance, big.NewInt(1000000000000000000)))
 	} else {
-		// for _, i := range parsed.Constructor.Inputs {
-		// 	t := reflect.Zero(i.Type.Elem)
-		// 	v := t.Interface()
-		// 	if t.Kind() == reflect.Ptr && t.IsNil() {
-		// 		elem := reflect.TypeOf(v).Elem()
-		// 		v2 := reflect.New(elem)
-		// 		v = v2.Interface()
-		// 	}
-		// 	dataInputs = append(dataInputs, v)
-		// }
+		for _, i := range parsed.Constructor.Inputs {
+			t := reflect.Zero(i.Type.TupleType)
+			v := t.Interface()
+			if t.Kind() == reflect.Ptr && t.IsNil() {
+				elem := reflect.TypeOf(v).Elem()
+				v2 := reflect.New(elem)
+				v = v2.Interface()
+			}
+			dataInputs = append(dataInputs, v)
+		}
 	}
+
+	d.auth.GasPrice = big.NewInt(5)
+	d.auth.GasLimit = 210000
 
 	address, _, _, err := bind.DeployContract(d.auth, parsed, common.FromHex(contractBin), d.con, dataInputs...)
 	if err != nil {
